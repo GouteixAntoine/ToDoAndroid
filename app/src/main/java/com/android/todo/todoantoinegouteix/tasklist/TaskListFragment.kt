@@ -20,13 +20,22 @@ class TaskListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val taskListAdapter = TaskListAdapter(taskList)
         recycle_view
         recycle_view.layoutManager = LinearLayoutManager(activity)
-        recycle_view.adapter = TaskListAdapter(taskList)
+        recycle_view.adapter = taskListAdapter
+
+        // Ajout d'une liste
         floatingActionButton.setOnClickListener{
             // Instanciation d'un objet task avec des données préremplies:
             val task = Task(id = UUID.randomUUID().toString(), title = "Task ${taskList.size + 1}")
             taskList.add(task)
+            (recycle_view.adapter as TaskListAdapter).notifyDataSetChanged()
+        }
+
+        //Suppression d'une liste
+        taskListAdapter.onDeleteClickListener = { task ->
+            taskList.remove(task)
             (recycle_view.adapter as TaskListAdapter).notifyDataSetChanged()
         }
     }

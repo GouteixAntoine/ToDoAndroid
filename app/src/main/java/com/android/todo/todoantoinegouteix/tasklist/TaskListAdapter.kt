@@ -24,9 +24,19 @@ class TaskListAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<T
     }
 
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(taskTitle: Task) {
-            itemView.task_title.text = taskTitle.title
-            itemView.task_description.text = taskTitle.description
+        fun bind(task: Task) {
+            itemView.task_title.text = task.title
+            itemView.task_description.text = task.description
+            // Déclaration de la variable lambda dans l'adapter:
+            itemView.delete_task.setOnClickListener {
+                onDeleteClickListener?.invoke(task)
+            }
+
         }
     }
+    // Déclaration de la variable lambda dans l'adapter:
+    var onDeleteClickListener: ((Task) -> Unit)? = null
+
+
+
 }
