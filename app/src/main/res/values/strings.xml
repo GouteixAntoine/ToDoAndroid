@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">ToDoAntoineGouteix</string>
     <string name="delete_task">Delete</string>
+    <string name="edit_text">Modfiier le titre</string>
+    <string name="edit_description">Modifier la description</string>
+    <string name="edit_title">Modifier le titre</string>
+    <string name="validate_button">Valider</string>
+    <string name="edit_button">Modifier</string>
 </resources>

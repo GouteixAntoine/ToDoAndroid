@@ -31,11 +31,15 @@ class TaskListAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<T
             itemView.delete_task.setOnClickListener {
                 onDeleteClickListener?.invoke(task)
             }
+            itemView.save_button.setOnClickListener {
+                onAddClickListener?.invoke(task)
+            }
 
         }
     }
     // Déclaration de la variable lambda dans l'adapter:
     var onDeleteClickListener: ((Task) -> Unit)? = null
+    var onAddClickListener: ((Task) -> Unit)? = null
 
 
 
