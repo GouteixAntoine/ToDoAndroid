@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.todo.todoantoinegouteix.R
+import kotlinx.android.synthetic.main.activity_task.view.*
 import kotlinx.android.synthetic.main.item_task.view.*
 
 class TaskListAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
@@ -27,14 +28,14 @@ class TaskListAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<T
         fun bind(task: Task) {
             itemView.task_title.text = task.title
             itemView.task_description.text = task.description
+
             // Déclaration de la variable lambda dans l'adapter:
             itemView.delete_task.setOnClickListener {
                 onDeleteClickListener?.invoke(task)
             }
-            itemView.save_button.setOnClickListener {
+            itemView.edit_button.setOnClickListener {
                 onAddClickListener?.invoke(task)
             }
-
         }
     }
     // Déclaration de la variable lambda dans l'adapter:

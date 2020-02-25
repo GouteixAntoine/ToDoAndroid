@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageButton
-        android:id="@+id/save_button"
+        android:id="@+id/edit_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/edit_button"

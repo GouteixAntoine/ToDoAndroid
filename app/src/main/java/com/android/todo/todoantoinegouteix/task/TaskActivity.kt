@@ -6,28 +6,40 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.todo.todoantoinegouteix.R
 import com.android.todo.todoantoinegouteix.tasklist.Task
 import kotlinx.android.synthetic.main.activity_task.*
+
 import java.io.Serializable
 import java.util.*
 
 class TaskActivity: AppCompatActivity() {
+
+    companion object {
+        const val ADD_KEY = "key_add"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task)
 
 
+        val task = intent.getSerializableExtra(ADD_KEY) as? Task
+        edit_title.setText(task?.title)
+        edit_description.setText(task?.description)
+
+
+
         save_button.setOnClickListener{
-            val task = Task(id = UUID.randomUUID().toString(), title = edit_title.text.toString(), description = edit_description.text.toString())
-            intent.putExtra(EDIT_KEY,task as Serializable)
+            val newTask = Task(
+                id = task?.id ?: UUID.randomUUID().toString(),
+                title = edit_title.text.toString(),
+                description = edit_description.text.toString()
+            )
+            intent.putExtra(ADD_KEY,newTask as Serializable)
             setResult(Activity.RESULT_OK,intent)
             finish()
         }
 
-    }
 
-    companion object {
-        const val EDIT_KEY = "key_edit"
-        const val ADD_KEY = "key_add"
+
     }
 
 }
