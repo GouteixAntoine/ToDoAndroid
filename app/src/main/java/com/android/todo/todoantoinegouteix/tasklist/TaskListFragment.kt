@@ -1,5 +1,6 @@
 package com.android.todo.todoantoinegouteix.tasklist
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -9,9 +10,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.todo.todoantoinegouteix.R
+import com.android.todo.todoantoinegouteix.network.Api
 import com.android.todo.todoantoinegouteix.task.TaskActivity
 import kotlinx.android.synthetic.main.fragment_task_list.*
-import java.util.*
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 class TaskListFragment : Fragment() {
 
@@ -21,7 +25,9 @@ class TaskListFragment : Fragment() {
         Task(id = "id_3", title = "Task 3")
     )
 
+    // VARIABLES
     val taskListAdapter = TaskListAdapter(taskList)
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_task_list, container, false)
@@ -76,6 +82,25 @@ class TaskListFragment : Fragment() {
         taskListAdapter.notifyDataSetChanged()
 
     }
+
+    // VARIABLES
+    private val coroutineScope = MainScope()
+
+    @SuppressLint("SetTextI18n")
+    override fun onResume() {
+        super.onResume()
+        coroutineScope.launch {
+            val userInfo = Api.userService.getInfo().body()
+            info_user.text = "${userInfo?.firstName} ${userInfo?.lastName}"
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineScope.cancel()
+    }
+
 
     companion object {
         const val ADD_TASK_REQUEST_CODE = 256
